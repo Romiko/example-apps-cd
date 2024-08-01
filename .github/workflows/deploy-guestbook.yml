@@ -1,0 +1,38 @@
+name: Deploy x-website to minikube
+
+on:
+  push:
+    branches:
+      - nonexistent
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    name: Deploy to Kubernetes
+
+    env:
+      KUBE_CONTEXT: minikube
+      NAMESPACE: guestbook-3
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up kubectl
+      uses: azure/setup-kubectl@v3
+      with:
+        version: 'latest'
+
+    - name: Configure kubectl context
+      run: |
+        export KUBECONFIG=/Users/1133594/.kube/config
+        kubectl config use-context $KUBE_CONTEXT
+        kubectl config get-contexts  # List the contexts for debugging purposes
+
+    - name: Deploy guestbook UI deployment
+      run: |
+        kubectl apply -f guestbook/guestbook-ui-deployment.yaml -n $NAMESPACE
+
+    - name: Deploy guestbook UI service
+      run: |
+        kubectl apply -f guestbook/guestbook-ui-svc.yaml -n $NAMESPACE

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guestbook-ui
+spec:
+  replicas: 3 
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: guestbook-ui
+  template:
+    metadata:git br
+      labels:
+        app: guestbook-ui
+    spec:
+      containers:
+      - image: romiko/nginx-rom:895855b
+        name: guestbook-ui
+        ports:
+        - containerPort: 80
