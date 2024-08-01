@@ -3,17 +3,18 @@ kind: Deployment
 metadata:
   name: guestbook-ui
 spec:
-  replicas: 3 
+  replicas: 1
   revisionHistoryLimit: 3
   selector:
     matchLabels:
       app: guestbook-ui
   template:
-    metadata:git br
+    metadata:
       labels:
         app: guestbook-ui
     spec:
       containers:
+      #- image: gcr.io/heptio-images/ks-guestbook-demo:0.2
       - image: romiko/nginx-rom:895855b
         name: guestbook-ui
         ports:
