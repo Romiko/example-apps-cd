@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       #- image: gcr.io/heptio-images/ks-guestbook-demo:0.2
-      - image: romiko/nginx-rom:895855b
+      - image: romiko/nginx-rom:46a1672
         name: guestbook-ui
         ports:
         - containerPort: 80
